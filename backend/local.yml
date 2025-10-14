@@ -1,0 +1,23 @@
+console:
+  max_message_size_bytes: 409600
+logger:
+  level: "DEBUG"
+database:
+  address:
+    - "postgres:your-secure-password@postgres:5432/nakama?sslmode=disable"
+  max_idle_conns: 10
+  max_open_conns: 100
+  conn_max_lifetime_ms: 30000
+runtime:
+  go_path: "/nakama/data/modules"
+  go_entrypoint: "backend.so"
+session:
+  token_expiry_sec: 7200
+socket:
+  max_message_size_bytes: 4096
+  max_request_size_bytes: 131072
+  ping_period_ms: 5000
+  pong_wait_ms: 10000
+  write_wait_ms: 5000
+  read_buffer_size_bytes: 4096
+  write_buffer_size_bytes: 4096

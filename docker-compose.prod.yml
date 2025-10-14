@@ -1,0 +1,49 @@
+version: '3.8'
+services:
+  postgres:
+    image: postgres:13-alpine
+    container_name: ttt_postgres
+    environment:
+      - POSTGRES_DB=nakama
+      - POSTGRES_PASSWORD=your-secure-password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+    restart: unless-stopped
+
+  nakama:
+    build: ./backend
+    container_name: ttt_nakama
+    depends_on:
+      - postgres
+    entrypoint:
+      - "/bin/sh"
+      - "-ecx"
+      - >
+        /nakama/nakama migrate up --database.address postgres:your-secure-password@postgres:5432/nakama?sslmode=disable &&
+        exec /nakama/nakama --config /nakama/data/config.yml --database.address postgres:your-secure-password@postgres:5432/nakama?sslmode=disable
+    ports:
+      - "8349:7349"
+      - "8350:7350"
+      - "8351:7351"
+    restart: unless-stopped
+
+  frontend:
+    build: 
+      context: ./frontend/tac-tac-toe
+      dockerfile: Dockerfile
+    container_name: ttt_frontend
+    ports:
+      - "3000:80"
+    environment:
+      - VITE_NAKAMA_SERVER_KEY=defaultkey
+      - VITE_NAKAMA_HOST=localhost
+      - VITE_NAKAMA_PORT=8350
+      - VITE_NAKAMA_SSL=false
+    depends_on:
+      - nakama
+    restart: unless-stopped
+
+volumes:
+  postgres_data:

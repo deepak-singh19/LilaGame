@@ -1,0 +1,33 @@
+name: nakama
+data_dir: "./data/"
+
+logger:
+  level: "INFO"
+  stdout: true
+
+database:
+  driver: "postgres"
+  address: 
+    - "${DATABASE_URL}"
+
+socket:
+  server_key: "defaultkey"
+  port: 7350
+  max_message_size_bytes: 4096
+  read_timeout_ms: 5000
+  write_timeout_ms: 5000
+  idle_timeout_ms: 60000
+
+console:
+  port: 7351
+  username: "admin"
+  password: "password"
+  max_message_size_bytes: 4096
+  read_timeout_ms: 5000
+  write_timeout_ms: 5000
+  idle_timeout_ms: 60000
+
+runtime:
+  http_key: "defaultkey"
+  read_only_globals: false
+  env: []
