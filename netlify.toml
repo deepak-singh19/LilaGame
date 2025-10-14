@@ -1,6 +1,6 @@
 [build]
   base = "frontend/tic-tac-toe"
-  publish = "frontend/tic-tac-toe/dist"
+  publish = "dist"
   command = "npm run build"
 
 [build.environment]
