@@ -258,10 +258,13 @@ export class NakamaService {
       }
 
       console.log("=== Creating WebSocket ===");
-      // Create socket with default configuration
-      this.socket = this.client.createSocket(false);
+      // Create socket with SSL configuration matching the client
+      const useSSL = import.meta.env.VITE_NAKAMA_SSL === "true" || 
+                     (import.meta.env.VITE_NAKAMA_SSL !== "false" && window.location.protocol === 'https:');
+      this.socket = this.client.createSocket(useSSL);
 
       console.log("=== Socket Created ===", {
+        useSSL: useSSL,
         timestamp: new Date().toISOString()
       });
 
