@@ -36,3 +36,10 @@ runtime:
   http_key: "defaultkey"
   read_only_globals: false
   env: []
+
+# HTTP server configuration for health checks
+http:
+  port: 7350
+  read_timeout_ms: 5000
+  write_timeout_ms: 5000
+  idle_timeout_ms: 60000

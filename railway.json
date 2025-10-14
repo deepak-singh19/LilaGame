@@ -6,8 +6,8 @@
   },
   "deploy": {
     "startCommand": "sh -c \"/nakama/nakama migrate up --database.address \\\"$DATABASE_URL\\\" && exec /nakama/nakama --database.address \\\"$DATABASE_URL\\\"\"",
-    "healthcheckPath": "/v2/status",
-    "healthcheckTimeout": 300,
+    "healthcheckPath": "/",
+    "healthcheckTimeout": 60,
     "restartPolicyType": "ON_FAILURE",
     "restartPolicyMaxRetries": 10
   }
