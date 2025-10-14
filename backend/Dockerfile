@@ -4,9 +4,18 @@ ENV GO111MODULE on
 ENV CGO_ENABLED 1
 
 WORKDIR /backend
-COPY go.mod go.sum ./
-RUN go mod download
+
+# Copy go.mod and go.sum (if it exists)
+COPY go.mod ./
+COPY go.sum* ./
+
+# Download dependencies and generate go.sum if missing
+RUN go mod download && go mod tidy
+
+# Copy the rest of the source code
 COPY . .
+
+# Build the plugin
 RUN go build --trimpath --buildmode=plugin -o ./backend.so
 
 FROM heroiclabs/nakama:3.26.0
