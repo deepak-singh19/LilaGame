@@ -29,6 +29,8 @@ console:
   read_timeout_ms: 5000
   write_timeout_ms: 5000
   idle_timeout_ms: 60000
+  # Enable console for health checks
+  enabled: true
 
 runtime:
   http_key: "defaultkey"

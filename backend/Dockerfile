@@ -30,10 +30,12 @@ RUN rm -f /nakama/data/local.yml
 RUN echo '#!/bin/sh' > /start.sh && \
     echo 'echo "Starting Nakama with DATABASE_URL: $DATABASE_URL"' >> /start.sh && \
     echo 'echo "Waiting for database to be ready..."' >> /start.sh && \
-    echo 'sleep 10' >> /start.sh && \
+    echo 'sleep 5' >> /start.sh && \
     echo 'echo "Running database migrations..."' >> /start.sh && \
     echo '/nakama/nakama migrate up --database.address "$DATABASE_URL"' >> /start.sh && \
+    echo 'echo "Database migrations completed"' >> /start.sh && \
     echo 'echo "Starting Nakama server..."' >> /start.sh && \
+    echo 'echo "Server will be available on port 7350"' >> /start.sh && \
     echo 'exec /nakama/nakama --database.address "$DATABASE_URL"' >> /start.sh && \
     chmod +x /start.sh
 
