@@ -85,7 +85,11 @@ export class NakamaService {
     const serverKey = import.meta.env.VITE_NAKAMA_SERVER_KEY || "defaultkey";
     const host = import.meta.env.VITE_NAKAMA_HOST || "127.0.0.1";
     const port = import.meta.env.VITE_NAKAMA_PORT || "7350";
-    const useSSL = import.meta.env.VITE_NAKAMA_SSL === "true";
+    
+    // Auto-detect SSL requirement: use SSL if explicitly set, or if page is served over HTTPS
+    const isHTTPS = window.location.protocol === 'https:';
+    const useSSL = import.meta.env.VITE_NAKAMA_SSL === "true" || 
+                   (import.meta.env.VITE_NAKAMA_SSL !== "false" && isHTTPS);
 
     this.client = new Client(serverKey, host, port, useSSL);
 
@@ -93,7 +97,9 @@ export class NakamaService {
       serverkey: serverKey,
       host: host,
       port: port,
-      useSSL: useSSL
+      useSSL: useSSL,
+      isHTTPS: isHTTPS,
+      protocol: window.location.protocol
     });
   }
 
