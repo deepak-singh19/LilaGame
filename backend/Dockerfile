@@ -5,15 +5,12 @@ ENV CGO_ENABLED 1
 
 WORKDIR /backend
 
-# Copy go.mod and go.sum (if it exists)
-COPY go.mod ./
-COPY go.sum* ./
-
-# Download dependencies and generate go.sum if missing
+# Copy backend files from the build context (Railway builds from root)
+COPY backend/go.mod backend/go.sum* ./
 RUN go mod download && go mod tidy
 
-# Copy the rest of the source code
-COPY . .
+# Copy the rest of the backend source code
+COPY backend/ ./
 
 # Build the plugin
 RUN go build --trimpath --buildmode=plugin -o ./backend.so
