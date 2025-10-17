@@ -337,7 +337,7 @@ const TicTacToe: React.FC = () => {
             </div>
             <button
               onClick={() => setGameResult(null)}
-              className="mt-4 px-4 py-2 bg-white bg-opacity-20 rounded hover:bg-opacity-30 transition-colors"
+              className="mt-4 px-4 py-2 bg-white bg-opacity-20 text-black rounded hover:bg-opacity-30 transition-colors"
             >
               Close
             </button>
